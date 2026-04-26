@@ -233,7 +233,9 @@ public class SceneRender {
         Vector3f coneDirection = new Vector3f();
         float cutoff = 0.0f;
         if (spotLight != null) {
-            coneDirection = spotLight.getConeDirection();
+            Vector4f auxDir = new Vector4f(spotLight.getConeDirection(), 0.0f);
+            auxDir.mul(viewMatrix);
+            coneDirection.set(auxDir.x, auxDir.y, auxDir.z);
             cutoff = spotLight.getCutOff();
             pointLight = spotLight.getPointLight();
         }
